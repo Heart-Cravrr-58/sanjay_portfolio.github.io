@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Sanjay — Futuristic Portfolio"
+description = "A responsive, interactive portfolio for Sanjay built from his resume, with persistent light and dark themes, animated canvas visuals, project and skill storytelling, and a scroll-reactive experience timeline."
+version = "1.0.0"
+id = "artifacts/sanjay-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24815
+
+[services.development]
+run = "pnpm --filter @workspace/sanjay-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/sanjay-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/sanjay-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24815"
+BASE_PATH = "/"
